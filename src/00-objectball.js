@@ -109,87 +109,101 @@ function gameObject (){
       }
 
     }
-    }
+    };
 }
 //log gameObject 
 console.log(gameObject());//logs the gameObject
 //part2.Building functions 
-//function to return Home Team Name
-function homeTeamName(){
-    let object =gameObject();
-    return object ["home"]["teamName"];
-}
-console.log(homeTeamName());
-//logs "Brooklyn Nets"
 
-//part3.function numPointsScored
+//function numPointsScored
 function numPointsScored(playerName) {
-    const game = gameObject();
-    for (let team in game) {
-      if (game[team].players[playerName]) {
+    const game = gameObject();//get the game data
+    for (let team in game) {//loop through both home and away teams
+      if (game[team].players[playerName]) {// condition to check if the player exists in the team's player object
         return game[team].players[playerName].points;
       }
     }
-    return "Player not found";
+    return "Player not found";//if the player is not found 
   }
   
 console.log(numPointsScored ( "Allan Anderson"));
 console.log(numPointsScored( "Mason Plumlee"));
 console.log(numPointsScored("Jason Terry"));
 
-//part4. function shoe size
+// function shoe size
 function shoeSize(playerName){
-    const game = gameObject();
-    for (let team in game ) {
-        if (game[team].players[playerName]){
+    const game = gameObject();// get the game data
+    for (let team in game ) {//iterate through both home and away
+        if (game[team].players[playerName]){//condition to check if the player exists in the team's players object
             return game[team].players[playerName].shoe;
         }
     }
-    return "player not found";
+    return "player not found";//if the player is not found 
 }
 console.log(shoeSize("Brendan Haywood"));
 console.log(shoeSize( "Mason Plumlee"));
 console.log(shoeSize( " DeSagna Diop"));
-//part 5.function team colors
+//function team colors
 function teamColors(teamName) {
     const game = gameObject();
-    for (let team in game) {
-      if (game[team].teamName === teamName) {
+    for (let team in game) {//loop through both home and away teams
+      if (game[team].teamName === teamName) {//check if the team matches
         return game[team].colors;
       }
     }
-    return "Team not found";
+    return "Team not found";// if team not found
   }
   console.log(teamColors("Charlotte Hornets"));
-  //Part 6. function team name to return both teams
+  console.log(teamColors("Brooklyn Nets"));
+
+
+  // function team name to return both teams
   function teamNames() {
     const game = gameObject();
-    return [game.home.teamName, game.away.teamName];
+    return [game.home.teamName, game.away.teamName];//return the team names 
 }
 console.log(teamNames());
 //part 7. function player numbers
 function playerNumbers(teamName){
     const game = gameObject();
-  for (let team in game) {
+  for (let team in game) {//itterate through  home and away teams
     if (game[team].teamName === teamName) {
-      return Object.values(game[team].players).map(player => player.number);
+      return Object.values(game[team].players).map(player => player.number);// Extracts player objects, converts them to an array, and maps each player to their team player number.
     }
   }
   return "Team not found";
 }
 console.log(playerNumbers("Charlotte Hornets"));
 console.log(playerNumbers("Brooklyn Nets"));
-//part8. function playerstatsreturns a players stat as an object
+
+// function playerstatsreturns a players stat as an object
 function playerStats(playerName) {
     const game = gameObject();
-    for (let team in game) {
-      if (game[team].players[playerName]) {
-        return game[team].players[playerName];
+    for (let team in game) {//loop through the away and home teams 
+      if (game[team].players[playerName]) {//check through the players in away team and home team
+        return game[team].players[playerName];//return the stats object
       }
     }
     return "Player not found";
   }
-  console.log(playerStats("Reggie Evans"));
+  console.log(playerStats("Allan Anderson"));
+  // function bigShoeRebounds 
+    function bigShoeRebounds(){
+      const game =gameObject();
+      let maxShoeSize = 0;
+      let rebounds = 0;
+     for ( team in game){//loop through the teams in gameObject
+      const players=game[team].player;
+      for ( let player in players) {
+        if( players[player].shoe>maxShoeSize){// check for the largest shoe size in players
+          maxShoeSize=players[player].shoe;
+          rebounds=players[player].rebounds;
+      }
+     }
+    }
+    return rebounds;
+  }
+  console.log(bigShoeRebounds());
   //bonus function
   //part 9 function most points scored
   function mostPointsScored() {
